@@ -1,0 +1,1 @@
+# Spring Security JWT - Symetric Key
