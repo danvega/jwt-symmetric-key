@@ -68,7 +68,7 @@ public class SecurityConfig {
     @Bean
     public JwtDecoder jwtDecoder() {
         byte[] bytes = jwtKey.getBytes();
-        SecretKeySpec originalKey = new SecretKeySpec(jwtKey.getBytes(), 0, bytes.length, "AES");
+        SecretKeySpec originalKey = new SecretKeySpec(jwtKey.getBytes(), 0, bytes.length,"RSA");
         return NimbusJwtDecoder.withSecretKey(originalKey).build();
     }
 

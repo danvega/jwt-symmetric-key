@@ -34,10 +34,9 @@ public class TokenService {
                 .subject(authentication.getName())
                 .claim("scope", scope)
                 .build();
-        // Spring Auth Server insists on producing RS-256 signatures for its JWTs, you have to be very explicit if you want something else.
+        // Spring Auth Server insists on producing RSA-256 signatures for its JWTs, you have to be very explicit if you want something else.
         // Thank you, @Kehrlann 👏🏻
-        var encoderParameters = JwtEncoderParameters
-                .from(JwsHeader.with(MacAlgorithm.HS512).build(), claims);
+        var encoderParameters = JwtEncoderParameters.from(JwsHeader.with(MacAlgorithm.HS512).build(), claims);
         return this.encoder.encode(encoderParameters).getTokenValue();
     }
 

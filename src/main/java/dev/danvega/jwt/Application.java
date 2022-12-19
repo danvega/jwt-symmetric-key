@@ -12,11 +12,4 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean
-    CommandLineRunner commandLineRunner() {
-        return args -> {
-
-        };
-    }
-
 }
