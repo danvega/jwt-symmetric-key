@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configurers.oauth2.ser
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
@@ -34,7 +35,7 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(
                 User.withUsername("dvega")
                         .password("{noop}password")
-                        .authorities("read")
+                        .authorities("READ","ROLE_USER")
                         .build());
     }
 
@@ -43,8 +44,8 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests( auth -> auth
-                        .requestMatchers("/api/auth/token").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/auth/token").hasRole("USER")
+                        .anyRequest().hasAuthority("SCOPE_READ")
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
@@ -61,7 +62,7 @@ public class SecurityConfig {
     public JwtDecoder jwtDecoder() {
         byte[] bytes = jwtKey.getBytes();
         SecretKeySpec originalKey = new SecretKeySpec(bytes, 0, bytes.length,"RSA");
-        return NimbusJwtDecoder.withSecretKey(originalKey).build();
+        return NimbusJwtDecoder.withSecretKey(originalKey).macAlgorithm(MacAlgorithm.HS512).build();
     }
 
 }
