@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>dev.danvega</groupId>
     <artifactId>jwt-symetric-key</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>jwt</name>
-    <description>JWT using Symetric key</description>
+    <description>JWT using Symmetric Key Encryption</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -24,11 +24,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
